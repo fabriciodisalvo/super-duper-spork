@@ -1,4 +1,4 @@
-def sodoku_display(sudoku_map):
+def sudoku_display(sudoku_map):
     print(" -" * 12)
     for y in range(9):
         print("|", end=" ")
@@ -11,13 +11,22 @@ def sodoku_display(sudoku_map):
             print(" -" * 12)
 
 
+def group_validate(group_to_check):
+    if sum(group_to_check) != 45:
+        return False
+    for i in group_to_check:
+        if group_to_check.count(i) != 1:
+            return False
+    return True
+
+
 def sudoku_check(sudoku_map):
     if len(sudoku_map) != 81:
         print(' Sudoku provided is not 81 numbers long...')
     elif sudoku_map.count(0) != 0:
         print(' Sudoku provided contains zeros...')
     else:
-        sodoku_display(sudoku_map)
+        sudoku_display(sudoku_map)
 
 
 def main():
