@@ -11,6 +11,15 @@ def sodoku_display(sudoku_map):
             print(" -" * 12)
 
 
+def sudoku_check(sudoku_map):
+    if len(sudoku_map) != 81:
+        print(' Sudoku provided is not 81 numbers long...')
+    elif sudoku_map.count(0) != 0:
+        print(' Sudoku provided contains zeros...')
+    else:
+        sodoku_display(sudoku_map)
+
+
 def main():
     sudoku_map = [1, 2, 3, 4, 5, 6, 7, 8, 9,
                   7, 8, 9, 1, 2, 3, 4, 5, 6,
@@ -21,7 +30,7 @@ def main():
                   2, 3, 1, 5, 7, 4, 6, 9, 8,
                   9, 6, 8, 2, 3, 1, 5, 7, 4,
                   5, 7, 4, 9, 6, 8, 2, 3, 1]
-    sodoku_display(sudoku_map)
+    sudoku_check(sudoku_map)
 
 
 if __name__ == "__main__":
