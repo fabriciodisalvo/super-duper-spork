@@ -46,11 +46,13 @@ def sudoku_check(sudoku_map):
             if group_validate(column_to_check):
                 print('Column {} : {} : Group is OK.'.format(y + 1, column_to_check))
 #       Perform validation square by square:
+        square_number = 0
         for z in range(0, 9, 3):
             for w in range(0, 9, 3):
+                square_number += 1
                 square_to_check = sudoku_map[((z + 0) * 9 + w):((z + 0) * 9 + w + 3)] + sudoku_map[((z + 1) * 9 + w):((z + 1) * 9 + w + 3)] + sudoku_map[((z + 2) * 9 + w):((z + 2) * 9 + w + 3)]
                 if group_validate(square_to_check):
-                    print('Square {} : {} : Group is OK.'.format(z + 1, square_to_check))
+                    print('Square {} : {} : Group is OK.'.format(square_number, square_to_check))
 
 def main():
     sudoku_map = [1, 2, 3, 4, 5, 6, 7, 8, 9,
