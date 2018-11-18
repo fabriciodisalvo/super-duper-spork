@@ -39,7 +39,12 @@ def sudoku_check(sudoku_map):
         for i in range(9):
             line_to_check = sudoku_map_solved[(i * 9 + 0):(i * 9 + 9)]
             if group_validate(line_to_check):
-                print('Line {} : {} : Group is OK.'.format(i + 1, line_to_check))
+                print('Line   {} : {} : Group is OK.'.format(i + 1, line_to_check))
+#       Perform validation column by column:
+        for y in range(9):
+            column_to_check = [sudoku_map[num] for num in range(81) if num % 9 == y]
+            if group_validate(column_to_check):
+                print('Column {} : {} : Group is OK.'.format(y + 1, column_to_check))
 
 
 def main():
