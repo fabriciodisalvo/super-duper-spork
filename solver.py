@@ -20,13 +20,22 @@ def group_validate(group_to_check):
     return True
 
 
+def sudoku_solver(sudoku_map):
+    print(' Sudoku provided: ')
+    sudoku_display(sudoku_map)
+    print(' Sudoku solved: ')
+    sudoku_display(sudoku_map)
+    return sudoku_map
+
+
+
 def sudoku_check(sudoku_map):
     if len(sudoku_map) != 81:
         print(' Sudoku provided is not 81 numbers long...')
     elif sudoku_map.count(0) != 0:
         print(' Sudoku provided contains zeros...')
     else:
-        sudoku_display(sudoku_map)
+        sudoku_map_solved = sudoku_solver(sudoku_map)
 
 
 def main():
