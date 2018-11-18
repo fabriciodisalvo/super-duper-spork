@@ -28,7 +28,6 @@ def sudoku_solver(sudoku_map):
     return sudoku_map
 
 
-
 def sudoku_check(sudoku_map):
     if len(sudoku_map) != 81:
         print(' Sudoku provided is not 81 numbers long...')
@@ -36,6 +35,11 @@ def sudoku_check(sudoku_map):
         print(' Sudoku provided contains zeros...')
     else:
         sudoku_map_solved = sudoku_solver(sudoku_map)
+#       Perform validation line by line:
+        for i in range(9):
+            line_to_check = sudoku_map_solved[(i * 9 + 0):(i * 9 + 9)]
+            if group_validate(line_to_check):
+                print('Line {} : {} : Group is OK.'.format(i + 1, line_to_check))
 
 
 def main():
