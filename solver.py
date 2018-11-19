@@ -21,44 +21,50 @@ def group_validate(group_to_check):
 
 
 def sudoku_solver(sudoku_map):
-    print(' Sudoku provided: ')
-    sudoku_display(sudoku_map)
     print(' Sudoku solved: ')
     sudoku_display(sudoku_map)
     return sudoku_map
 
 
 def sudoku_check(sudoku_map):
+    sudoku_map_solved = sudoku_solver(sudoku_map)
+#       Perform validation line by line:
+    for i in range(9):
+        line_to_check = sudoku_map_solved[(i * 9 + 0):(i * 9 + 9)]
+        if group_validate(line_to_check):
+            pass
+            #print('Line   {} : {} : Group is OK.'.format(i + 1, line_to_check))
+        else:
+            print('Line   {} : {} : NEEDS REVIEW.'.format(i + 1, line_to_check))
+#       Perform validation column by column:
+    for y in range(9):
+        column_to_check = [sudoku_map[num] for num in range(81) if num % 9 == y]
+        if group_validate(column_to_check):
+            pass
+            #print('Column {} : {} : Group is OK.'.format(y + 1, column_to_check))
+        else:
+            print('Column {} : {} : NEEDS REVIEW.'.format(y + 1, column_to_check))
+#       Perform validation square by square:
+    square_number = 0
+    for z in range(0, 9, 3):
+        for w in range(0, 9, 3):
+            square_number += 1
+            square_to_check = sudoku_map[((z + 0) * 9 + w):((z + 0) * 9 + w + 3)] + sudoku_map[((z + 1) * 9 + w):((z + 1) * 9 + w + 3)] + sudoku_map[((z + 2) * 9 + w):((z + 2) * 9 + w + 3)]
+            if group_validate(square_to_check):
+                pass
+                #print('Square {} : {} : Group is OK.'.format(square_number, square_to_check))
+            else:
+                print('Square {} : {} : NEEDS REVIEW.'.format(square_number, square_to_check))
+
+
+def input_check(sudoku_map):
     if len(sudoku_map) != 81:
         print(' Sudoku provided is not 81 numbers long...')
     elif sudoku_map.count(0) != 0:
         print(' Sudoku provided contains zeros...')
     else:
-        sudoku_map_solved = sudoku_solver(sudoku_map)
-#       Perform validation line by line:
-        for i in range(9):
-            line_to_check = sudoku_map_solved[(i * 9 + 0):(i * 9 + 9)]
-            if group_validate(line_to_check):
-                print('Line   {} : {} : Group is OK.'.format(i + 1, line_to_check))
-            else:
-                print('Line   {} : {} : NEEDS REVIEW.'.format(i + 1, line_to_check))
-#       Perform validation column by column:
-        for y in range(9):
-            column_to_check = [sudoku_map[num] for num in range(81) if num % 9 == y]
-            if group_validate(column_to_check):
-                print('Column {} : {} : Group is OK.'.format(y + 1, column_to_check))
-            else:
-                print('Column {} : {} : NEEDS REVIEW.'.format(y + 1, column_to_check))
-#       Perform validation square by square:
-        square_number = 0
-        for z in range(0, 9, 3):
-            for w in range(0, 9, 3):
-                square_number += 1
-                square_to_check = sudoku_map[((z + 0) * 9 + w):((z + 0) * 9 + w + 3)] + sudoku_map[((z + 1) * 9 + w):((z + 1) * 9 + w + 3)] + sudoku_map[((z + 2) * 9 + w):((z + 2) * 9 + w + 3)]
-                if group_validate(square_to_check):
-                    print('Square {} : {} : Group is OK.'.format(square_number, square_to_check))
-                else:
-                    print('Square {} : {} : NEEDS REVIEW.'.format(square_number, square_to_check))
+        return True
+
 
 def main():
     sudoku_map = [1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -70,7 +76,10 @@ def main():
                   2, 3, 1, 5, 7, 4, 6, 9, 8,
                   9, 6, 8, 2, 3, 1, 5, 7, 4,
                   5, 7, 4, 9, 6, 8, 2, 3, 1]
-    sudoku_check(sudoku_map)
+    if input_check(sudoku_map):
+        print('\n Sudoku provided: ')
+        sudoku_display(sudoku_map)
+        # sudoku_check(sudoku_map)
 
 
 if __name__ == "__main__":
