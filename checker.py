@@ -1,6 +1,10 @@
-
 def group_validate(group_to_check):
-    if sum(group_to_check) != 45:
+    try:
+        if sum(group_to_check) != 45:
+            return False
+    except TypeError:
+        pass
+    if 'X' in group_to_check:
         return False
     for i in group_to_check:
         if group_to_check.count(i) != 1:
