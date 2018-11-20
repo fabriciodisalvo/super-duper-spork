@@ -1,22 +1,11 @@
 from checker import sudoku_check
-
-
-def sudoku_display(sudoku_map):
-    print(" -" * 12)
-    for y in range(9):
-        print("|", end=" ")
-        for i in range(3):
-            print(sudoku_map[y * 9 + 0 + i * 3],
-                  sudoku_map[y * 9 + 1 + i * 3],
-                  sudoku_map[y * 9 + 2 + i * 3], "|", end=" ")
-        print()
-        if (y + 1) % 3 == 0:
-            print(" -" * 12)
+from solver import sudoku_solver
+from display import sudoku_display
 
 
 def input_check(sudoku_map):
     if len(sudoku_map) != 81:
-        print(' Sudoku provided is not 81 numbers long...')
+        print(' Sudoku provided is not 81 positions long...')
     elif sudoku_map.count(0) != 0:
         print(' Sudoku provided contains zeros...')
     else:
@@ -24,24 +13,25 @@ def input_check(sudoku_map):
 
 
 def main():
-    sudoku_map = [1, 2, 3, 4, 5, 6, 7, 8, 8,
-                  7, 8, 9, 1, 2, 3, 4, 5, 6,
+    sudoku_map = [1, 2, 3, 'X', 5, 6, 7, 8, 9,
+                  7, 8, 9, 1, 2, 3, 4, 5, 'X',
                   4, 5, 6, 7, 8, 9, 1, 2, 3,
-                  3, 1, 2, 8, 4, 5, 9, 6, 7,
+                  3, 1, 2, 8, 4, 'X', 9, 6, 7,
                   6, 9, 7, 3, 1, 2, 8, 4, 5,
-                  8, 4, 5, 6, 9, 7, 3, 1, 2,
+                  8, 'X', 5, 6, 9, 7, 3, 1, 2,
                   2, 3, 1, 5, 7, 4, 6, 9, 8,
                   9, 6, 8, 2, 3, 1, 5, 7, 4,
-                  5, 7, 4, 9, 6, 8, 2, 3, 1]
+                  5, 7, 4, 9, 6, 8, 'X', 3, 1]
     if input_check(sudoku_map):
         print('\n Sudoku provided: ')
         sudoku_display(sudoku_map)
         print()
         if sudoku_check(sudoku_map):
-            pass
+            print()
+            print(' Sudoku solved: ')
+            sudoku_display(sudoku_test_map)
         else:
-            print(' Keep trying')
-            # Placeholder for solver method
+            sudoku_solver(sudoku_map)
 
 
 if __name__ == "__main__":
