@@ -50,10 +50,13 @@ sudoku_map_list = {
                   'X', 2, 'X', 5, 'X', 'X', 'X', 'X', 'X']
 }
 
-for i in sudoku_map_list.keys():
-    this_sudoku = Sudoku(sudoku_map_list[i])
-    print()
-    print(' Sudoku provided: ')
-    this_sudoku.display()
-    sudoku_solved = Solver.solve(Solver, this_sudoku)
+# for i in sudoku_map_list.keys():
+#     this_sudoku = Sudoku(sudoku_map_list[i])
+#     print()
+#     print(' Sudoku provided: ')
+#     this_sudoku.display()
+#     sudoku_solved = Solver.solve(Solver, this_sudoku)
 
+
+this_sudoku = Sudoku(sudoku_map_list['half_miss'])
+sudoku_solved = Solver.solve(Solver, this_sudoku)
