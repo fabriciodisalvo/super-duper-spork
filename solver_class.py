@@ -2,8 +2,6 @@ from sudoku_class import Sudoku
 
 
 class Solver:
-    def __init__(self):  # LATEST VERSION TESTING
-        self.solver_sudokus_dictionary = {}  # LATEST VERSION TESTING
 
     def find_related_groups(self, location):
         current_line_to_check = list(range(((location // 9) * 9), ((location // 9) * 9 + 9)))
@@ -45,19 +43,17 @@ class Solver:
                 return False
         return True
 
-    def solve_test_02(self, sudoku_input):
-        sudoku_map = sudoku_input.sudoku_map
+    def solve_test_02(self, sudoku_input_map):
+        sudoku_map = sudoku_input_map
         print('NEW INSTANCE ', '_' * 25)
-        sudoku_input.display()
+        print(sudoku_map)
+        print()
         possible_guesses = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         try:
             last_changed_position = sudoku_map.index('X')
-            self.solver_sudokus_dictionary[last_changed_position] = sudoku_input  # LATEST VERSION TESTING
-            print(self.solver_sudokus_dictionary)  # LATEST VERSION TESTING
             all_relatives = self.find_related_groups(last_changed_position)
             all_relative_values = [sudoku_map[x] for x in all_relatives]
             possible_guesses_for_this_location = [x for x in possible_guesses if x not in all_relative_values]
-            print()
             if len(possible_guesses_for_this_location) > 0:
                 for x in possible_guesses_for_this_location:
                     print('Position : {}'.format(last_changed_position))  # remove after testing
@@ -66,22 +62,23 @@ class Solver:
                     print('Possible values : {}'.format(possible_guesses_for_this_location))  # remove after testing
                     print('Setting {} in position {}'.format(x, last_changed_position))  # remove after testing
                     print()
-                    sudoku_map = self.solver_sudokus_dictionary[last_changed_position].sudoku_map  # LATEST VERSION TESTING
                     sudoku_map[last_changed_position] = x
-                    sudoku_in_progress = Sudoku(sudoku_map)
-                    self.solve_test_02(sudoku_in_progress)
+                    self.solve_test_02(sudoku_map)
                 print('Position : {}'.format(last_changed_position))  # remove after testing
                 print('No more choices for this position.')  # remove after testing
+                sudoku_map[last_changed_position] = 'X'  # LATEST TESTING
                 print()
             else:
                 print('Position : {}'.format(last_changed_position))  # remove after testing
                 print('No choices, backtracking...')  # remove after testing
+                sudoku_map[last_changed_position] = 'X'  # LATEST TESTING
                 print()
         except ValueError:
             print()
             print(' Solved:')
-            sudoku_input.display()
-        return
+            solved_sudoku = Sudoku(sudoku_input_map)
+            solved_sudoku.display()
+            return(solved_sudoku)
 
     def solve_test_01(self, sudoku_input):
         sudoku_map = sudoku_input.sudoku_map
