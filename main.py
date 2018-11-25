@@ -16,7 +16,8 @@ def main():
     print()
     print(' Sudoku provided: ')
     this_sudoku.display()
-    sudoku_solved = Solver.solve(Solver, this_sudoku)
+    sudoku_solved = Solver()
+    sudoku_solved.solve(Solver, this_sudoku)
     return sudoku_solved
 
 

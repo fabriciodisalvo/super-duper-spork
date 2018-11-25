@@ -58,5 +58,10 @@ sudoku_map_list = {
 #     sudoku_solved = Solver.solve(Solver, this_sudoku)
 
 
-this_sudoku = Sudoku(sudoku_map_list['half_miss'])
-sudoku_solved = Solver.solve(Solver, this_sudoku)
+this_sudoku = Sudoku(sudoku_map_list['real_test'])
+print()
+print(' Provided:')
+this_sudoku.display()
+print()
+sudoku_solved = Solver()
+sudoku_solved.solve_test_02(this_sudoku)
