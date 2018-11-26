@@ -19,4 +19,3 @@ class Sudoku:
         #     print(' Sudoku provided contains zeros...')
         else:
             self.sudoku_map = sudoku_map
-            self.sudoku_map_in_progress = sudoku_map
