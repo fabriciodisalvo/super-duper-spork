@@ -43,8 +43,7 @@ class Solver:
                     self.path_list.append(last_changed_position + 1)
                     print(' Position : {}'.format(last_changed_position))  # remove after testing
                     taken_values = list(set(all_relative_values))
-                    while 'X' in taken_values:
-                        taken_values.remove('X')
+                    taken_values.remove('X')
                     print(' Taken values    : {}'.format(taken_values))  # remove after testing
                     print(' Possible values : {}'.format(possible_guesses_for_this_location))  # remove after testing
                     print(' Setting {} in position {}'.format(x, last_changed_position))  # remove after testing

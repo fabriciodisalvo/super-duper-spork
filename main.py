@@ -3,22 +3,22 @@ from solver_class import Solver
 
 
 def main():
-    sudoku_map = [1, 2, 3, 'X', 5, 6, 7, 8, 9,
-                  7, 8, 9, 1, 2, 3, 4, 5, 'X',
-                  4, 5, 6, 7, 8, 9, 1, 2, 3,
-                  3, 1, 2, 8, 4, 'X', 9, 6, 7,
-                  6, 9, 7, 3, 1, 2, 8, 4, 5,
-                  8, 'X', 5, 6, 9, 7, 3, 1, 2,
-                  2, 3, 1, 5, 7, 4, 6, 9, 8,
-                  9, 6, 8, 2, 3, 1, 5, 7, 4,
-                  5, 7, 4, 9, 6, 8, 'X', 3, 1]
+    sudoku_map = ['X', 'X', 'X', 'X', 'X', 4, 'X', 9, 'X',
+                  8, 'X', 2, 9, 7, 'X', 'X', 'X', 'X',
+                  9, 'X', 1, 2, 'X', 'X', 3, 'X', 'X',
+                  'X', 'X', 'X', 'X', 4, 9, 1, 5, 7,
+                  'X', 1, 3, 'X', 5, 'X', 9, 2, 'X',
+                  5, 7, 9, 1, 2, 'X', 'X', 'X', 'X',
+                  'X', 'X', 7, 'X', 'X', 2, 6, 'X', 3,
+                  'X', 'X', 'X', 'X', 3, 8, 2, 'X', 5,
+                  'X', 2, 'X', 5, 'X', 'X', 'X', 'X', 'X']
     this_sudoku = Sudoku(sudoku_map)
     print()
     print(' Sudoku provided: ')
     this_sudoku.display()
+    print()
     sudoku_solved = Solver()
-    sudoku_solved.solve(Solver, this_sudoku)
-    return sudoku_solved
+    sudoku_solved.solve(this_sudoku.sudoku_map)
 
 
 if __name__ == "__main__":
