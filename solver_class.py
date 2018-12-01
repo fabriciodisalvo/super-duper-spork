@@ -30,12 +30,6 @@ class Solver:
         all_relatives.remove(location)
         return(all_relatives)
 
-    def solve(self, sudoku_input_map):
-        self.solve_version_01(sudoku_input_map)
-
-    def solve_version_02(self, sudoku_input_map):
-        return
-
     def solve_version_01(self, sudoku_input_map):
         sudoku_map = sudoku_input_map
         possible_guesses = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -48,9 +42,6 @@ class Solver:
                 for x in possible_guesses_for_this_location:
                     self.path_list.append(last_changed_position + 1)
                     print(' Position : {}'.format(last_changed_position))  # remove after testing
-                    taken_values = list(set(all_relative_values))
-                    taken_values.remove(0)
-                    print(' Taken values    : {}'.format(taken_values))  # remove after testing
                     print(' Possible values : {}'.format(possible_guesses_for_this_location))  # remove after testing
                     print(' Setting {} in position {}'.format(x, last_changed_position))  # remove after testing
                     print()
@@ -76,3 +67,9 @@ class Solver:
             print(' Path lenght : {}'.format(len(self.path_list)))
             print()
             return True
+
+    def solve_version_02(self, sudoku_input_map):
+        return
+
+    def solve(self, sudoku_input_map):
+        self.solve_version_01(sudoku_input_map)
