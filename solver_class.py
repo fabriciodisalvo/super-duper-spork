@@ -41,35 +41,31 @@ class Solver:
             if len(possible_guesses_for_this_location) > 0:
                 for x in possible_guesses_for_this_location:
                     self.path_list.append(last_changed_position + 1)
-                    print(' Position : {}'.format(last_changed_position))  # remove after testing
-                    print(' Possible values : {}'.format(possible_guesses_for_this_location))  # remove after testing
-                    print(' Setting {} in position {}'.format(x, last_changed_position))  # remove after testing
-                    print()
+                    # print(' Position : {} ;  Possible values : {}'.format(last_changed_position, possible_guesses_for_this_location))  # remove after testing
+                    # print(' Setting {} in position {}'.format(x, last_changed_position))  # remove after testing
+                    # print()
                     sudoku_map[last_changed_position] = x
                     if self.solve_version_01(sudoku_map):
                         return True
-                print(' Position : {}'.format(last_changed_position))  # remove after testing
-                print(' Exhausted all choices for this position. Backtracking...')  # remove after testing
+                # print(' Position : {}'.format(last_changed_position))  # remove after testing
+                # print(' Exhausted all choices for this position. Backtracking...')  # remove after testing
                 sudoku_map[last_changed_position] = 0  # LATEST TESTING
-                print()
+                # print()
             else:
-                print(' Position : {}'.format(last_changed_position))  # remove after testing
-                print(' No valid options for this position, backtracking...')  # remove after testing
+                # print(' Position : {}'.format(last_changed_position))  # remove after testing
+                # print(' No valid options for this position, backtracking...')  # remove after testing
                 sudoku_map[last_changed_position] = 0  # LATEST TESTING
-                print()
+                # print()
         except ValueError:
             print()
-            print(' Solved:')
+            print(' Solved :')
             solved_sudoku = Sudoku(sudoku_map)
             solved_sudoku.display()
-            print()
-            print(' Path walked : {}'.format(self.path_list))
+            # print()
+            # print(' Path walked : {}'.format(self.path_list))
             print(' Path lenght : {}'.format(len(self.path_list)))
             print()
             return True
-
-    def solve_version_02(self, sudoku_input_map):
-        return
 
     def solve(self, sudoku_input_map):
         self.solve_version_01(sudoku_input_map)

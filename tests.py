@@ -1,6 +1,32 @@
 from sudoku_class import Sudoku
 from solver_class import Solver
+import time
 
+def print_stats(stats_list):
+    rolling_sum = 0
+    rolling_count = 0
+    print()
+    print(' -' * 30)
+    for i in stats_list:
+        rolling_sum += i[1]
+        rolling_count += 1
+        print("|", end=" ")
+        print(i[0].center(15), end=" ")
+        print("|", end=" ")
+        print(str(i[1]).ljust(39), end=" ")
+        print("|")
+    print(' -' * 30)
+    print("|", end=" ")
+    print('Total processes : {}'.format(rolling_count).center(57), end=" ")
+    print("|")
+    print("|", end=" ")
+    print('Total time of process : {}'.format(rolling_sum).center(57), end=" ")
+    print("|")
+    print("|", end=" ")
+    print('Average time of process : {}'.format(rolling_sum / rolling_count).center(57), end=" ")
+    print("|")
+    print(' -' * 30)
+    print()
 
 sudoku_map_list = {
     'completed': [1, 2, 3, 4, 5, 6, 7, 8, 9, 7, 8, 9, 1, 2, 3, 4, 5, 6, 4, 5, 6, 7, 8, 9, 1, 2, 3, 3, 1, 2, 8, 4, 5, 9, 6, 7, 6, 9, 7, 3, 1, 2, 8, 4, 5, 8, 4, 5, 6, 9, 7, 3, 1, 2, 2, 3, 1, 5, 7, 4, 6, 9, 8, 9, 6, 8, 2, 3, 1, 5, 7, 4, 5, 7, 4, 9, 6, 8, 2, 3, 1],
@@ -20,13 +46,23 @@ sudoku_map_list = {
     'all_zeros': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 }
 
+stats_list = []
+
 for i in sudoku_map_list.keys():
-    if input(' Continue ? : ') == 'n':
-        break
+    this_sudoku_stats = []
+    time_at_start = time.time()
     this_sudoku = Sudoku(sudoku_map_list[i])
     print()
-    print(' Sudoku provided: ')
+    print(' Sudoku provided : ')
     this_sudoku.display()
     print()
     sudoku_solved = Solver()
     sudoku_solved.solve(this_sudoku.sudoku_map)
+    time_at_end = time.time()
+    time_elapsed = time_at_end - time_at_start
+    print(' Time elapsed: {} seconds'.format(time_elapsed))
+    this_sudoku_stats.append(i)
+    this_sudoku_stats.append(time_elapsed)
+    stats_list.append(this_sudoku_stats)
+
+print_stats(stats_list)

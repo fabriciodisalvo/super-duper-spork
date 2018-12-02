@@ -15,7 +15,5 @@ class Sudoku:
     def __init__(self, sudoku_map):
         if len(sudoku_map) != 81:
             print(' Sudoku provided is not 81 positions long...')
-        # elif sudoku_map.count(0) != 0:
-        #     print(' Sudoku provided contains zeros...')
         else:
             self.sudoku_map = sudoku_map
