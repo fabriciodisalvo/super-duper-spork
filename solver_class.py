@@ -4,6 +4,7 @@ from sudoku_class import Sudoku
 class Solver:
     def __init__(self):
         self.path_list = []
+        self.possible_guesses = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     def find_related_groups(self, location):
         current_line_to_check = list(range(((location // 9) * 9), ((location // 9) * 9 + 9)))
@@ -32,40 +33,79 @@ class Solver:
 
     def solve_version_01(self, sudoku_input_map):
         sudoku_map = sudoku_input_map
-        possible_guesses = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         try:
             last_changed_position = sudoku_map.index(0)
             all_relatives = self.find_related_groups(last_changed_position)
             all_relative_values = [sudoku_map[x] for x in all_relatives]
-            possible_guesses_for_this_location = [x for x in possible_guesses if x not in all_relative_values]
+            possible_guesses_for_this_location = [x for x in self.possible_guesses if x not in all_relative_values]
             if len(possible_guesses_for_this_location) > 0:
                 for x in possible_guesses_for_this_location:
                     self.path_list.append(last_changed_position + 1)
-                    # print(' Position : {} ;  Possible values : {}'.format(last_changed_position, possible_guesses_for_this_location))  # remove after testing
-                    # print(' Setting {} in position {}'.format(x, last_changed_position))  # remove after testing
-                    # print()
                     sudoku_map[last_changed_position] = x
                     if self.solve_version_01(sudoku_map):
-                        return True
-                # print(' Position : {}'.format(last_changed_position))  # remove after testing
-                # print(' Exhausted all choices for this position. Backtracking...')  # remove after testing
-                sudoku_map[last_changed_position] = 0  # LATEST TESTING
-                # print()
+                        return [sudoku_map, self.path_list, len(self.path_list)]
+                sudoku_map[last_changed_position] = 0
             else:
-                # print(' Position : {}'.format(last_changed_position))  # remove after testing
-                # print(' No valid options for this position, backtracking...')  # remove after testing
-                sudoku_map[last_changed_position] = 0  # LATEST TESTING
-                # print()
+                sudoku_map[last_changed_position] = 0
         except ValueError:
-            print()
-            print(' Solved :')
-            solved_sudoku = Sudoku(sudoku_map)
-            solved_sudoku.display()
-            # print()
-            # print(' Path walked : {}'.format(self.path_list))
-            print(' Path lenght : {}'.format(len(self.path_list)))
-            print()
             return True
 
+    def solve_version_01_graphic(self, sudoku_input_map):
+        sudoku_map = sudoku_input_map
+        try:
+            last_changed_position = sudoku_map.index(0)
+            all_relatives = self.find_related_groups(last_changed_position)
+            all_relative_values = [sudoku_map[x] for x in all_relatives]
+            possible_guesses_for_this_location = [x for x in self.possible_guesses if x not in all_relative_values]
+            if len(possible_guesses_for_this_location) > 0:
+                for x in possible_guesses_for_this_location:
+                    self.path_list.append(last_changed_position + 1)
+                    sudoku_map[last_changed_position] = x
+                    # os.system('clear')  # CONSOLE PROGRESS DYNAMIC VIEW
+                    print('\n', 'Testing values :')  # CONSOLE PROGRESS DYNAMIC VIEW
+                    Sudoku(sudoku_map).display()  # CONSOLE PROGRESS DYNAMIC VIEW
+                    print(' Path lenght : {}'.format(len(self.path_list)))  # CONSOLE PROGRESS DYNAMIC VIEW
+                    print(' Position : {} ;  Possible values : {}'.format(last_changed_position, possible_guesses_for_this_location))  # remove after testing
+                    print(' Setting {} in position {}'.format(x, last_changed_position))  # remove after testing
+                    print()
+                    sudoku_map[last_changed_position] = x
+                    if self.solve_version_01_graphic(sudoku_map):
+                        return [sudoku_map, self.path_list, len(self.path_list)]
+                print(' Position : {}'.format(last_changed_position))  # remove after testing
+                print(' Exhausted all choices for this position. Backtracking...')  # remove after testing
+                sudoku_map[last_changed_position] = 0  # LATEST TESTING
+                print()
+            else:
+                print(' Position : {}'.format(last_changed_position))  # remove after testing
+                print(' No valid options for this position, backtracking...')  # remove after testing
+                sudoku_map[last_changed_position] = 0  # LATEST TESTING
+                print()
+        except ValueError:
+            return True
+
+    def solve_version_02(self, sudoku_input_map):
+        sudoku_map = sudoku_input_map
+        blank_indices = [i for i, x in enumerate(sudoku_map) if x == 0]
+        if len(blank_indices) == 0:
+                return [sudoku_map, self.path_list, len(self.path_list)]
+        most_relevant_position = 0
+        most_relevant_position_options = [None, None, None, None, None, None, None, None, None, None]
+        for position in blank_indices:
+            all_relatives = self.find_related_groups(position)
+            all_relative_values = [sudoku_map[x] for x in all_relatives]
+            possible_guesses_for_this_location = [x for x in self.possible_guesses if x not in all_relative_values]
+            if len(possible_guesses_for_this_location) < len(most_relevant_position_options):
+                most_relevant_position = position
+                most_relevant_position_options = possible_guesses_for_this_location
+        if len(most_relevant_position_options) > 0:
+            for x in most_relevant_position_options:
+                self.path_list.append(most_relevant_position + 1)
+                sudoku_map[most_relevant_position] = x
+                if self.solve_version_02(sudoku_map):
+                    return [sudoku_map, self.path_list, len(self.path_list)]
+            sudoku_map[most_relevant_position] = 0
+        else:
+            sudoku_map[most_relevant_position] = 0
+
     def solve(self, sudoku_input_map):
-        self.solve_version_01(sudoku_input_map)
+        return self.solve_version_02(sudoku_input_map)
