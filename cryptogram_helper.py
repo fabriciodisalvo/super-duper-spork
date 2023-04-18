@@ -12,9 +12,16 @@ def check_word_format(word):
             word_format = word_format + dict_letters[letter]
     return(word_format)
 
-def solve_cryptogram_recursive(cr_list, min_dict, solved_crgram, cand_dict, prefix):
+def solve_cryptogram_recursive(cr_list, min_dict, solved_crgram, cand_dict, prefix, order_solved_crgram):
     if cr_list == []:
-        print('The solved phase is: ',solved_crgram)
+        solved_phrase = ''
+        solved_crgram_list = solved_crgram.split()
+        for position in range(len(solved_crgram_list)):
+            position_word = solved_crgram_list[order_solved_crgram[position]]
+            solved_phrase = solved_phrase + position_word + ' '
+        print()
+        print(solved_phrase)
+        print()
         return True
     else:
         word_to_decrypt = cr_list[0]
@@ -33,7 +40,7 @@ def solve_cryptogram_recursive(cr_list, min_dict, solved_crgram, cand_dict, pref
                         test_against_previous_candidate = False
                         break
             if test_against_previous_candidate:
-                print(prefix, candidate)
+                # print(prefix, candidate)
                 for letter_to_check in range(len(word_to_decrypt)):
                     next_min_dict[word_to_decrypt[letter_to_check]] = candidate[letter_to_check]
             else:
@@ -41,5 +48,5 @@ def solve_cryptogram_recursive(cr_list, min_dict, solved_crgram, cand_dict, pref
             next_solved_crgram = solved_crgram + ' ' + candidate
             next_cr_list = cr_list[1:]
             new_prefix = '    ' + prefix
-            if solve_cryptogram_recursive(next_cr_list, next_min_dict, next_solved_crgram, next_candidate_dict, new_prefix):
+            if solve_cryptogram_recursive(next_cr_list, next_min_dict, next_solved_crgram, next_candidate_dict, new_prefix, order_solved_crgram):
                 return True
