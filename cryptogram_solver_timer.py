@@ -11,7 +11,3 @@ f = open("log.txt", "a") # Update the log:
 log_text = str(version) + ' ' + str(timer_start) + ' ' + str(timer_total_time)
 f.write(log_text+"\n")
 f.close()
-
-f = open("log.txt", "r") # Open and read the updated log:
-print(f.read())
-f.close()

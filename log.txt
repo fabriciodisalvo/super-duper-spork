@@ -10,6 +10,12 @@ Total time of generating candidate list: 3.871591806411743
 Total time of solving program: 0.013659000396728516
 Total time of full solving cryptogram: 3.9791886806488037
 
+v0.03
+Total time of generating words set: 0.03603982925415039
+Total time of generating candidate list: 0.6230471134185791
+Total time of solving program: 0.3621549606323242
+Total time of full solving cryptogram: 1.0212419033050537
+
 
 version start_time total_time
 
