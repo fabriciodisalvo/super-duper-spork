@@ -46,7 +46,7 @@ for i in test_files.keys():
     stats_list = []
     index_file = 0
     if input(' Test with {} files ? : '.format(i)) != 'y':
-        break
+        continue
     workfile = test_files[i]
     input_file_opened = open(workfile, 'r')
     for line in input_file_opened:
@@ -57,20 +57,19 @@ for i in test_files.keys():
         sudoku_map_to_import = [int(x) for x in line if x != '\n']
         this_sudoku = Sudoku(sudoku_map_to_import)
         print()
-        print(' Sudoku provided : ')
-        this_sudoku.display()
+        print(' Sudoku : ', str(index_file))
+        # this_sudoku.display()
         sudoku_solved = Solver()
         [fully_solved, walked_path, walked_lenght] = sudoku_solved.solve(
             this_sudoku.sudoku_map)
         time_at_end = time.time()
-        print('\n', 'Solved :')
+        # print('\n', 'Solved :')
         end_sudoku = Sudoku(fully_solved)
-        end_sudoku.display()
-        print('\n', 'Time elapsed: {} seconds'.format(
-            time_at_end - time_at_start))
+        # end_sudoku.display()
+        # print('\n', 'Time elapsed: {} seconds'.format(time_at_end - time_at_start))
         # print('\n', 'Path walked : {}'.format(walked_path)
-        print('\n', 'Path lenght : {}'.format(walked_lenght))
-        print()
+        # print('\n', 'Path lenght : {}'.format(walked_lenght))
+        # print()
         this_sudoku_stats.append(str(i) + ' ' + str(index_file))
         this_sudoku_stats.append(time_at_end - time_at_start)
         stats_list.append(this_sudoku_stats)
